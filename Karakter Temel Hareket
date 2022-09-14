@@ -1,0 +1,32 @@
+ Rigidbody2D playerx;
+     public float movespeed = 1f;
+     bool facingRight=true ;
+
+    void Start()
+    {
+        playerx = GetComponent<Rigidbody2D>();
+    }
+
+    
+    void Update()
+    {
+        playerx.velocity = new Vector2(Input.GetAxis("Horizontal") * movespeed , playerx.velocity.y );
+       
+        if(playerx.velocity.x < 0 && facingRight)
+        {
+              FlipFace();
+        }
+        
+        else if (playerx.velocity.x > 0 && !facingRight)
+        {
+               FlipFace();
+        }
+    }
+    
+     void FlipFace()
+      {
+        facingRight = !facingRight;
+        Vector3 tempLocalScale = transform.localScale;
+        tempLocalScale.x *= -1;
+        transform.localScale = tempLocalScale;
+      }
